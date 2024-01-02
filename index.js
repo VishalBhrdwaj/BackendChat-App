@@ -14,6 +14,10 @@ const io=new Server(server,{
 })
  
 io.on('connection',(socket)=>{
+    socket.on("new_user_joined",(userData)=>{
+        console.log(`${userData.name} joined the chat`)
+        io.emit("new_user_joined",userData)
+    })
     socket.on("send_message",(data)=>{
         console.log("Message Recieved on server",data);
         socket.broadcast.emit("recieve_message",data);
